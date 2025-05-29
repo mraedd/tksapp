@@ -1,12 +1,12 @@
-import {Image,} from 'react-native';
+import { StyleSheet,View,Text,
+} from 'react-native';
 
 export default function Page() {
     return (
         <View style={styles.container}>
-        <Image
-        source={require('./assets/tkslogo.png')}
-        style={{ width: 180, height: 140, resizeMode: 'contain' }}
-        />
+            <Text style={{textAlign: 'center', padding: 20, fontSize: 24, fontWeight: 'bold'}}>
+                "2. Sayfa - Galeri"
+            </Text>
         </View>
     );
 }
@@ -15,5 +15,7 @@ export default function Page() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    },
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });

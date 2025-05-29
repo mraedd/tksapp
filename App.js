@@ -1,41 +1,77 @@
-import { StyleSheet,Text,View,Image,SafeAreaView,Button,StatusBar,
+import { StyleSheet,Text,View,Image,Button,StatusBar,
+
 } from 'react-native';
 
-import * as Animatable from 'react-native-animatable';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {NavigationContainer} from '@react-navigation/native';
 
+const Stack = createNativeStackNavigator();
+
+const anaEkran = ({navigation}) => {
+  return (
+    
+    <Button
+      title="Galeriye Git"
+      accessibilityLabel="Galeriye gitmek için tıklayın"
+      onPress={() =>
+        navigation.navigate('Galeri', {name: 'Teksinn'})
+      }
+    />
+
+  );
+};
+
+const Ekran = ({navigation, route}) => {
+  return ( 
+    <View style={{justifyContent: 'center', alignItems: 'center'}}>
+      <Image source={href="https://picsum.photos/200/300"} style={{ width: 400, height: 400, resizeMode: "contain",  }} />
+      <Text style={{fontSize: 20, textAlign: 'center', marginTop: 20}}>
+        {route.params.name} Galerisi</Text>
+        <Button
+          title="Ana Ekrana Dön"
+          accessibilityLabel="Ana Ekrana dönmek için tıklayın"
+          onPress={() => navigation.navigate('Ana')}
+        />
+    </View>
+  );
+};
 
 export default function App() {
+  
   return (
-
-    <SafeAreaView style={styles.container}>
+/*Ana Sayfa Header */
+    <View style={styles.container}>
         <View style={styles.header}>
           <Image
             source={require("./assets/tkslogo.png")}
             style={{ width: 180, height: 140, resizeMode: "contain" }}
           />
           <StatusBar style="auto" />
-        </View>
+        </View>     
+    <View style={styles.navi}>
 
-      <View style={[styles.body]}>
-        <Animatable.Text animation="zoomInUp" iterationCount="1" style={{ textAlign: 'center' ,paddingBottom:25}}>
-          <Text style={{fontWeight:"bold",fontSize:30}}>Aradığın Herşey.!!!</Text>
-        </Animatable.Text>
+        <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Ana"
+            component={anaEkran}
+            options={{title: "Aradığın Herşey ,Teksinn'de.!", headerShown: false}}
+          />
+          <Stack.Screen name="Galeri" component={Ekran} />
+        </Stack.Navigator>
+      </NavigationContainer>
 
-          <Animatable.Text animation="pulse" easing="ease-out" iterationCount="infinite" style={{ textAlign: 'center' }}>
-            <Button style={{justifyContent: "flex-start"}} title="Haydi Başlayalım.!" onPress={() =>  {}} />
-          </Animatable.Text>
-      </View>
+    </View>
+
+    <View style={styles.statusBar}>
+      <StatusBar barStyle="light-content" backgroundColor="#000000" />
+    </View>
 
     <View style={styles.footer}>
         <Text style={styles.setFooter}>Teksinn © {new Date().getFullYear()}</Text>
     </View>
 
-        <View style={styles.navi}>
-          <Button title="Anasayfa" onPress={() => navigator} />
-          <Button title="Galeri" onPress={() => window.location.href = 'Page'} />
-
-        </View>
-    </SafeAreaView>
+    </View>
     
   );
 }
@@ -44,14 +80,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    },
-
-    navi:{
-      flexDirection:"row", 
-      alignItems: 'center', 
-      justifyContent: 'space-evenly',
-      margin:80,
-
     },
 
   header:{
@@ -67,10 +95,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  body: {
+  navi: {
+    top:140,
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   footer: {
     bottom: 0,
